@@ -1,0 +1,61 @@
+<div class="row mt-5 d-flex justify-content-center animated fadeIn">
+  <div class="col-sm-8">
+    <div class="card">
+      <div class="card-body">
+        <h3 class="m-t-none m-b">Registrar cliente</h3>
+        <p>Favor completar el siguiente formulario.</p>
+        <form role="form">
+
+          <div class="form-group">
+            <label>Nombres</label>
+            <input type="text" placeholder="Nombres" class="form-control" />
+          </div>
+
+          <div class="form-group">
+            <label>Apellidos</label>
+            <input type="text" placeholder="apellidos" class="form-control" />
+          </div>
+
+          <div class="form-group">
+            <label>Teléfono</label>
+            <input type="text" placeholder="apellidos" class="form-control" />
+          </div>
+
+          <div class="form-group">
+            <label>Correo electrónico</label>
+            <input type="text" placeholder="apellidos" class="form-control" />
+          </div>
+
+          <div class="form-group" *ngFor="let item of addresses.controls; let i = index">
+            <hr class="my-3">
+
+            <label>Dirección {{i + 1}}</label>
+            <div class="row">
+              <div class="col">
+                <input type="text" class="form-control" placeholder="Título de dirección. Ejemplo: Casa">
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col">
+                <input type="text" class="form-control" placeholder="Departamento">
+              </div>
+              <div class="col">
+                <input type="text" class="form-control" placeholder="Ciudad">
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col">
+                <input type="text" class="form-control" placeholder="Calle">
+              </div>
+              <div class="col">
+                <input type="text" class="form-control" placeholder="Número/poligono">
+              </div>
+            </div>
+
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
