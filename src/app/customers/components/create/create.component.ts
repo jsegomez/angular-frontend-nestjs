@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import Swal, { SweetAlertIcon } from 'sweetalert2';
+import { Customer } from '../../../interfaces/customer.interface';
+import { CustomersService } from '../../services/customers.service';
 
 @Component({
   selector: 'app-create',
@@ -9,24 +13,73 @@ import { FormArray, FormBuilder, Validators } from '@angular/forms';
 export class CreateComponent implements OnInit {
 
   constructor(
-    private formBuilder: FormBuilder
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private customerService: CustomersService
   ) { }
 
   ngOnInit(): void {
+    this.addAddr();
   }
 
   public formCustomer = this.formBuilder.group({
-    name      : ['', Validators.required],
-    lastName  : ['', Validators.required],
-    phone     : ['', Validators.required],
-    email     : ['', Validators.required],
-    address   : this.formBuilder.array([]),
+    name        : ['', [Validators.required, Validators.minLength(2)] ],
+    lastName    : ['', [Validators.required, Validators.minLength(2)]],
+    phone       : ['', [Validators.required]],
+    email       : ['', [Validators.required, Validators.email]],
+    addresses   : this.formBuilder.array([]),
   });
 
-  items: number[] = [1,1,1,1,1,1,1];
-
   get addresses(){
-    return this.formCustomer.get('address') as FormArray;
+    return this.formCustomer.get('addresses') as FormArray;
   }
 
+  address = {
+    department : ['', [Validators.required]],
+    city       : ['', [Validators.required]],
+    street     : ['', [Validators.required]],
+    number     : ['', [Validators.required]],
+    title      : ['', [Validators.required]],
+  }
+
+  addAddr(){
+    this.addresses.push(this.formBuilder.group(this.address));
+  }
+
+  validarCampo(campo: string) {
+    return  this.formCustomer.get(campo)?.invalid &&
+            this.formCustomer.get(campo)?.touched
+  } 
+
+  validarDireccion(index: number, input: string) {
+    const campo = this.addresses.controls[index].get(input);
+    return campo?.invalid && campo?.touched;
+  }
+
+  save(){
+    if(this.formCustomer.invalid){
+      this.formCustomer.markAllAsTouched();
+      this.message('error', 'Favor completar los campos marcados en rojo');
+      return;
+    }
+
+    const data: Customer = this.formCustomer.value;
+    this.customerService.save(data).subscribe(  
+      () => {
+        this.message('success', 'Cliente creado con éxito');
+        this.router.navigate(['/customers/list'])
+      }
+    );
+  }
+
+  message(iconAlert: SweetAlertIcon, message: string){
+    Swal.fire({
+      position: 'top-end',
+      icon: iconAlert,
+      title: message,
+      showConfirmButton: false,
+      timer: 1500,
+      toast: true
+    })
+  }
 }

@@ -1,59 +1,138 @@
 <div class="row mt-5 d-flex justify-content-center animated fadeIn">
-  <div class="col-sm-8">
-    <div class="card">
+  <div class="col-sm-7">
+    <div class="card mb-5">
       <div class="card-body">
         <h3 class="m-t-none m-b">Registrar cliente</h3>
         <p>Favor completar el siguiente formulario.</p>
-        <form role="form">
+        <form role="form" [formGroup]="formCustomer" autocomplete="off">
 
           <div class="form-group">
             <label>Nombres</label>
-            <input type="text" placeholder="Nombres" class="form-control" />
+            <input
+              type="text"
+              placeholder="Nombres"
+              class="form-control"
+              formControlName="name"
+              [class.is-invalid]="validarCampo('name')"
+            />
+            <small class="text-danger" *ngIf="validarCampo('name')">
+              Favor proporcionar su nombre con al menos dos caracteres
+            </small>
           </div>
 
           <div class="form-group">
             <label>Apellidos</label>
-            <input type="text" placeholder="apellidos" class="form-control" />
+            <input
+              type="text"
+              placeholder="apellidos"
+              class="form-control"
+              formControlName="lastName"
+              [class.is-invalid]="validarCampo('lastName')"
+            />
+            <small class="text-danger" *ngIf="validarCampo('lastName')">
+              Favor proporcionar su apellido con al menos dos caracteres
+            </small>
           </div>
 
           <div class="form-group">
             <label>Teléfono</label>
-            <input type="text" placeholder="apellidos" class="form-control" />
+            <input
+              type="text"
+              placeholder="Teléfono"
+              class="form-control"
+              formControlName="phone"
+              [class.is-invalid]="validarCampo('phone')"
+            />
+            <small class="text-danger" *ngIf="validarCampo('phone')">
+              Favor proporcionar un número teléfonico
+            </small>
           </div>
 
           <div class="form-group">
             <label>Correo electrónico</label>
-            <input type="text" placeholder="apellidos" class="form-control" />
+            <input
+              type="text"
+              placeholder="Correo electronico"
+              class="form-control"
+              formControlName="email"
+              [class.is-invalid]="validarCampo('email')"
+            />
+            <small class="text-danger" *ngIf="validarCampo('email')">
+              Favor proporcionar su correo electrónico
+            </small>
           </div>
 
-          <div class="form-group" *ngFor="let item of addresses.controls; let i = index">
+          <div formArrayName="addresses">
+            <div
+              class="form-group animated fadeIn"
+              *ngFor="let item of addresses.controls; let i = index"
+              [formGroupName]="i"
+             >
             <hr class="my-3">
 
             <label>Dirección {{i + 1}}</label>
             <div class="row">
               <div class="col">
-                <input type="text" class="form-control" placeholder="Título de dirección. Ejemplo: Casa">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Título de dirección. Ejemplo: Casa"
+                  formControlName="title"
+                  [class.is-invalid]="validarDireccion(i,'title')"
+                >
               </div>
             </div>
             <div class="row mt-3">
               <div class="col">
-                <input type="text" class="form-control" placeholder="Departamento">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Departamento"
+                  formControlName="department"
+                  [class.is-invalid]="validarDireccion(i,'department')"
+                >
               </div>
               <div class="col">
-                <input type="text" class="form-control" placeholder="Ciudad">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Ciudad"
+                  formControlName="city"
+                  [class.is-invalid]="validarDireccion(i,'city')"
+                >
               </div>
             </div>
             <div class="row mt-3">
               <div class="col">
-                <input type="text" class="form-control" placeholder="Calle">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Calle"
+                  formControlName="street"
+                  [class.is-invalid]="validarDireccion(i,'street')"
+                >
               </div>
               <div class="col">
-                <input type="text" class="form-control" placeholder="Número/poligono">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Número/poligono"
+                  formControlName="number"
+                  [class.is-invalid]="validarDireccion(i,'number')"
+                >
               </div>
             </div>
-
+          </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col">
+              <button class="btn btn-primary" (click)="addAddr()">Agregar dirección</button>
+            </div>
           </div>
 
+          <button class="btn btn-block btn-danger mt-3" (click)="save()"> 
+            Guardar
+          </button>
         </form>
       </div>
     </div>
