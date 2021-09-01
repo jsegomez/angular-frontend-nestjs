@@ -45,6 +45,32 @@
                     </li>
                 </ul>
             </li>
+
+            <li>
+              <a href="#"><i class="fa fa-flask"></i> <span class="nav-label">Marcas</span><span class="fa arrow"></span></a>
+              <ul class="nav nav-second-level collapse">
+                  <li>
+                    <a [routerLink]="[ '/brands/list' ]" routerLinkActive="active">Listado</a>
+                  </li>
+
+                  <li>
+                    <a [routerLink]="[ '/brands/create' ]" routerLinkActive="active">Registrar</a>
+                  </li>
+              </ul>
+          </li>
+
+          <li>
+            <a href="#"><i class="fa fa-flask"></i> <span class="nav-label">Categorias</span><span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level collapse">
+                <li>
+                  <a [routerLink]="[ '/categories/list' ]" routerLinkActive="active">Listado</a>
+                </li>
+
+                <li>
+                  <a [routerLink]="[ '/categories/create' ]" routerLinkActive="active">Registrar</a>
+                </li>
+            </ul>
+        </li>
         </ul>
 
     </div>
