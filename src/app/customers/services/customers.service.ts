@@ -16,6 +16,15 @@ export class CustomersService {
 
   private urlBase: string = `${environment.urlBase}/customers`;
 
+  getCustomerById(id: string): Observable<Customer>{
+    return this.http.get<Customer>(`${this.urlBase}/${id}`).pipe(
+      catchError(e => {
+        this.message('error', e.error.message)
+        return throwError(e);
+      })
+    );
+  }
+
   getAll(): Observable<Customer[]>{
     return this.http.get<Customer[]>(`${this.urlBase}/all`).pipe();
   }

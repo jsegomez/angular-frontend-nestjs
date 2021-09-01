@@ -1,9 +1,10 @@
 export interface Customer {
+  _id:      string;
   name:     string;
   lastName: string;
   phone:    number;
   email:    string;
-  addresses:  Address;
+  addresses:  Address[];
 }
 
 export interface Address {

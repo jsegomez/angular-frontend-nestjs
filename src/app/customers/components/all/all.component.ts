@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomersService } from '../../services/customers.service';
 import { Customer } from '../../../interfaces/customer.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-all',
@@ -9,7 +10,10 @@ import { Customer } from '../../../interfaces/customer.interface';
 })
 export class AllComponent implements OnInit {
 
-  constructor(private customerService: CustomersService) { }
+  constructor(
+    private router: Router,
+    private customerService: CustomersService
+  ) { }
 
   ngOnInit(): void {
     this.loadData();
@@ -19,11 +23,12 @@ export class AllComponent implements OnInit {
 
   loadData(){
     this.customerService.getAll().subscribe(
-      response => {
-        this.customers = response;
-        console.log(this.customers)
-      }
+      response => this.customers = response
     );
+  }
+
+  details(id: string){
+    this.router.navigate([`/customers/details/${id}`])
   }
 
 }

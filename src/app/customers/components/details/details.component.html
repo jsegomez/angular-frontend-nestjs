@@ -1,0 +1,48 @@
+<div class="container animated fadeIn">
+  <div class="row d-flex justify-content-center mt-5">
+    <div class="col-6">
+      <div class="card" *ngIf="customer">
+        <div class="card-body">
+          <h3 class="card-title">{{ customer.name }} {{ customer.lastName }}</h3>
+
+          <table class="table mt-4">
+            <tbody>
+              <tr>
+                <th scope="row">Teléfono</th>
+                <td>{{ customer.phone }}</td>
+              </tr>
+              <tr>
+                <th scope="row">Email</th>
+                <td>{{ customer.email }}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h4 class="mt-4">Direcciones:</h4>
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Departamento</th>
+                <th scope="col">Ciudad</th>
+                <th scope="col">Calle</th>
+                <th scope="col">Numero</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let address of customer.addresses">
+                <td>{{ address.department }}</td>
+                <td>{{ address.city }}</td>
+                <td>{{ address.street }}</td>
+                <td>{{ address.number }}</td>
+              </tr>
+            </tbody>
+          </table>
+
+
+          <a [routerLink]="[ '/customers/list' ]" class="btn btn-primary">Regresar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

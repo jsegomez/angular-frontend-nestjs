@@ -22,10 +22,12 @@ export class CreateComponent implements OnInit {
     this.addAddr();
   }
 
+  numbersKey: string[] = ['1','2','3','4','5','6','7','8','9','0'];
+
   public formCustomer = this.formBuilder.group({
     name        : ['', [Validators.required, Validators.minLength(2)] ],
     lastName    : ['', [Validators.required, Validators.minLength(2)]],
-    phone       : ['', [Validators.required]],
+    phone       : ['', [Validators.required,]],
     email       : ['', [Validators.required, Validators.email]],
     addresses   : this.formBuilder.array([]),
   });
@@ -49,7 +51,7 @@ export class CreateComponent implements OnInit {
   validarCampo(campo: string) {
     return  this.formCustomer.get(campo)?.invalid &&
             this.formCustomer.get(campo)?.touched
-  } 
+  }
 
   validarDireccion(index: number, input: string) {
     const campo = this.addresses.controls[index].get(input);
@@ -64,12 +66,20 @@ export class CreateComponent implements OnInit {
     }
 
     const data: Customer = this.formCustomer.value;
-    this.customerService.save(data).subscribe(  
+    this.customerService.save(data).subscribe(
       () => {
         this.message('success', 'Cliente creado con éxito');
         this.router.navigate(['/customers/list'])
       }
     );
+  }
+
+  onlyNumbers(event: KeyboardEvent): boolean {
+    if(this.numbersKey.includes(event.key)){
+      return true
+    }
+
+    return false;
   }
 
   message(iconAlert: SweetAlertIcon, message: string){

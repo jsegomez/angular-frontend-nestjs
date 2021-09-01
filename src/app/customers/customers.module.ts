@@ -8,11 +8,13 @@ import { CustomersRoutingModule } from './customers-routing.module';
 // Components
 import { CreateComponent } from './components/create/create.component';
 import { AllComponent } from './components/all/all.component';
+import { DetailsComponent } from './components/details/details.component';
 
 @NgModule({
   declarations: [
     CreateComponent,
-    AllComponent
+    AllComponent,
+    DetailsComponent
   ],
   imports: [
     CommonModule,
